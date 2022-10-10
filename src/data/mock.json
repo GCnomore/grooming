@@ -1,0 +1,19 @@
+{
+  "_id": "632f5719c380ab7a91cda655",
+  "name": "abc grooming",
+  "address": {
+    "full": "1111 hello blvd. #1034, East Blue, GL 45254",
+    "street": "1111 hello blvd.",
+    "street2": "#1034",
+    "city": "East Blue",
+    "state": "GL",
+    "zip": "45254"
+  },
+  "email": "abc@grooming.com",
+  "phone": "222-412-2142",
+  "contactName": "isaac",
+  "website": "",
+  "petLimit": { "all": false, "limit": 30 },
+  "createdAt": "2022-09-24T19:14:33.083+00:00",
+  "updatedAt": "2022-09-24T19:14:33.083+00:00"
+}
