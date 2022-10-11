@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { RouterProvider } from "react-router-dom";
 
 import * as Styled from "./App.styled";
