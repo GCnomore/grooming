@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import tryCatch from "../../util/tryCatch";
 import * as API from "../api/api";
 
-export const getStore = createAsyncThunk(
+export const getGroomingStore = createAsyncThunk(
   "store/getStore",
   async (storeId: string) => {
     const [error, res] = await tryCatch(API.fetchStore, storeId);

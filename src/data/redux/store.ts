@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import rootReducer from "./slice";
+import appointmentSlice from "./appointmentSlice";
 
-export const rootStore = configureStore({ reducer: rootReducer });
+export const store = configureStore({ reducer: appointmentSlice });
 
-export type RootDispatch = typeof rootStore.dispatch;
+export type RootDispatch = typeof store.dispatch;

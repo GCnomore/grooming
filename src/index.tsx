@@ -5,16 +5,16 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { rootStore } from "./data/redux/store";
+import { store } from "./data/redux/store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <Provider store={rootStore}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+  <Provider store={store}>
+    {/* <React.StrictMode> */}
+    <App />
+    {/* </React.StrictMode> */}
   </Provider>
 );
 

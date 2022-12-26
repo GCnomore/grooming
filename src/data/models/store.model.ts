@@ -17,6 +17,11 @@ export interface IStore {
     all: boolean;
     limit: number;
   };
+  hours: {
+    [key: string]: string;
+  };
+  lat: string;
+  lng: string;
   cereatedAt: Date;
   updatedAt: Date;
 }
