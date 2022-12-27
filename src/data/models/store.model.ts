@@ -1,4 +1,4 @@
-export interface IStore {
+export default interface IStore {
   _id: string;
   name: string;
   address: {

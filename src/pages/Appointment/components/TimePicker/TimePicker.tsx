@@ -2,7 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DAYS } from "../../../../constant";
-import { IStore } from "../../../../data/models/store.model";
+import IStore from "../../../../data/models/store.model";
 
 import {
   RootState,
@@ -62,7 +62,9 @@ const TimePicker: React.FC<TimePickerProps> = ({ store, date }) => {
         <span>This store is closed on selected date</span>
       ) : (
         <>
-          <Styled.TimeButton>{apptTime ?? "Select time"}</Styled.TimeButton>
+          <Styled.TimeButton isset={apptTime ? "true" : "false"}>
+            {apptTime ?? "Select time"}
+          </Styled.TimeButton>
           {timeItems ? (
             <Styled.TimeMenu>
               {timeItems.map((item) => (

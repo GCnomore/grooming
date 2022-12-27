@@ -1,67 +1,64 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import GoogleMapReact from "google-map-react";
 
 import * as Styled from "./Appointment.styled";
 import { RootState } from "../../data/redux/appointmentSlice";
-import { getGroomingStore } from "../../data/redux/actions";
-import { RootDispatch } from "../../data/redux/store";
 import StoreInfo from "./components/StoreInfo/StoreInfo";
-
-import upperAllFirst from "../../util/upperAllFirst";
+import { useNavigate } from "react-router-dom";
+import Layout from "../../components/Layout/Layout";
+import AppointmentLayout from "../../components/AppointmentLayout/AppointmentLayout";
 
 const Appointment: React.FC = () => {
-  const dispatch = useDispatch<RootDispatch>();
-  const { groomingShop } = useSelector((state: RootState) => state);
+  const { groomingShop, apptDate, apptTime } = useSelector(
+    (state: RootState) => state
+  );
 
-  useEffect(() => {
-    dispatch(getGroomingStore("632f5719c380ab7a91cda655"));
-  }, []);
+  const navigate = useNavigate();
 
   if (!groomingShop) {
     return <div></div>;
   } else {
     return (
-      <Styled.Container>
-        <Styled.Header>
-          <div>Account</div>
-        </Styled.Header>
+      <Layout>
+        <AppointmentLayout
+          show={apptDate && apptTime ? true : false}
+          btnAction={() => navigate("/customer-info")}
+        >
+          <Styled.Container>
+            <Styled.Contents>
+              <Styled.MapSection>
+                <GoogleMapReact
+                  bootstrapURLKeys={{
+                    key: "",
+                    // key: process.env.REACT_APP_GOOGLE_MAP_KEY ?? "",
+                  }}
+                  defaultCenter={{
+                    lat: Number(groomingShop.lat),
+                    lng: Number(groomingShop.lng),
+                  }}
+                  options={{
+                    disableDefaultUI: false,
+                    fullscreenControl: false,
+                    styles: [
+                      {
+                        featureType: "all",
+                        elementType: "labels",
+                        stylers: [{ visibility: "on" }],
+                      },
+                    ],
+                  }}
+                  defaultZoom={19}
+                />
+              </Styled.MapSection>
 
-        <Styled.StoreNameContainer>
-          <h1>{upperAllFirst(groomingShop.name)}</h1>
-        </Styled.StoreNameContainer>
-
-        <Styled.Contents>
-          <Styled.MapSection>
-            <GoogleMapReact
-              bootstrapURLKeys={{
-                key: "",
-                // key: process.env.REACT_APP_GOOGLE_MAP_KEY ?? "",
-              }}
-              defaultCenter={{
-                lat: Number(groomingShop.lat),
-                lng: Number(groomingShop.lng),
-              }}
-              options={{
-                disableDefaultUI: false,
-                fullscreenControl: false,
-                styles: [
-                  {
-                    featureType: "all",
-                    elementType: "labels",
-                    stylers: [{ visibility: "on" }],
-                  },
-                ],
-              }}
-              defaultZoom={19}
-            />
-          </Styled.MapSection>
-
-          <Styled.StoreInfoSection>
-            <StoreInfo store={groomingShop} />
-          </Styled.StoreInfoSection>
-        </Styled.Contents>
-      </Styled.Container>
+              <Styled.StoreInfoSection>
+                <StoreInfo store={groomingShop} />
+              </Styled.StoreInfoSection>
+            </Styled.Contents>
+          </Styled.Container>
+        </AppointmentLayout>
+      </Layout>
     );
   }
 };

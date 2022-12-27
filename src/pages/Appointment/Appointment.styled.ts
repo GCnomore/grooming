@@ -5,26 +5,9 @@ export const Container = styled.main`
   flex-direction: column;
 `;
 
-export const Header = styled.nav`
-  display: flex;
-  justify-content: flex-end;
-  padding: 1% 2%;
-`;
-
-export const StoreNameContainer = styled.header`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const Contents = styled.article`
   display: flex;
   justify-content: space-between;
-  width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5rem;
 `;
 
 export const StoreInfoSection = styled.section`
@@ -44,5 +27,3 @@ export const MapSection = styled.section`
     border-radius: 12px;
   }
 `;
-
-export const NextButton = styled.button``;

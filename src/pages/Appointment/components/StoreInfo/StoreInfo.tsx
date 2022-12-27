@@ -1,21 +1,27 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
-import Accordion from "react-bootstrap/Accordion";
 import DatePicker from "react-date-picker";
+import { useDispatch } from "react-redux";
 
 import * as Styled from "./StoreInfo.styled";
-import { IStore } from "../../../../data/models/store.model";
+import IStore from "../../../../data/models/store.model";
 import upperAllFirst from "../../../../util/upperAllFirst";
 import TimePicker from "../TimePicker/TimePicker";
+import { RootDispatch } from "../../../../data/redux/store";
+import {
+  RootState,
+  setApptDate,
+} from "../../../../data/redux/appointmentSlice";
+import { useSelector } from "react-redux";
 
 interface StoreInfoProps {
   store: IStore;
 }
 
 const StoreInfo: React.FC<StoreInfoProps> = ({ store }) => {
-  const [date, setDate] = useState(new Date());
+  const dispatch = useDispatch<RootDispatch>();
+  const { apptDate } = useSelector((state: RootState) => state);
 
   const petAcceptance = useCallback(() => {
     if (store.petLimit.all) {
@@ -27,7 +33,7 @@ const StoreInfo: React.FC<StoreInfoProps> = ({ store }) => {
 
   return (
     <Styled.Container>
-      <span>{upperAllFirst(store.name)}</span>
+      <h2>{upperAllFirst(store.name)}</h2>
       <span>
         <FontAwesomeIcon icon={faLocationDot} />
         &nbsp;&nbsp;&nbsp;
@@ -42,18 +48,22 @@ const StoreInfo: React.FC<StoreInfoProps> = ({ store }) => {
       </span>
       <span>{petAcceptance()}</span>
 
-      <div>Select date:</div>
-      <div>
+      <span>Select date:</span>
+      <Styled.DatePickerContainer>
         <DatePicker
-          value={date}
-          onChange={setDate}
+          value={apptDate}
+          onChange={(e: Date) => {
+            dispatch(setApptDate(e));
+          }}
           calendarIcon={null}
           clearIcon={null}
           className="gr-date-picker"
         />
+      </Styled.DatePickerContainer>
+      <span>Select time:</span>
+      <div>
+        <TimePicker store={store} date={apptDate} />
       </div>
-      <div>Select time:</div>
-      <TimePicker store={store} date={date} />
     </Styled.Container>
   );
 };

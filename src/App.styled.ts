@@ -8,3 +8,24 @@ export const AppContainer = styled.div`
   color: ${STYLE.FONT_COLOR};
   background-color: ${STYLE.MAIN_BG_COLOR};
 `;
+
+export const Header = styled.nav`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1% 2%;
+
+  > div:first-child {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
+
+export const StoreNameContainer = styled.header`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+`;
