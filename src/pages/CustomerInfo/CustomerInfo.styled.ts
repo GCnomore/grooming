@@ -71,3 +71,25 @@ export const EmergencyContactSection = styled.div`
     margin-top: 0.5rem;
   }
 `;
+
+export const ContactMethodSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      font-size: ${STYLE.LABEL_FONT_SIZE};
+      margin-bottom: 0;
+    }
+
+    > div:first-child {
+      margin-right: 1rem;
+    }
+  }
+`;

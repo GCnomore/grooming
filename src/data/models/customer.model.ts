@@ -11,5 +11,6 @@ export default interface ICustomer {
   email: string;
   emergencyContactName: string;
   emergencyContactPhone: string;
+  preferredContactMethod: string;
   pet: IPet[];
 }

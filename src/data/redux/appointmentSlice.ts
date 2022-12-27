@@ -26,6 +26,7 @@ const initialState: RootState = {
     email: "",
     emergencyContactName: "",
     emergencyContactPhone: "",
+    preferredContactMethod: "",
     pet: [],
   },
 };

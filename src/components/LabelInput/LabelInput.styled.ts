@@ -21,4 +21,5 @@ export const Error = styled.p`
   margin-bottom: 0;
   margin-top: 0.15rem;
   font-size: ${STYLE.LABEL_FONT_SIZE};
+  font-weight: bold;
 `;

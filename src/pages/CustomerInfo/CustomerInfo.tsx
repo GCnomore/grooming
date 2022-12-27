@@ -127,10 +127,19 @@ const CustomerInfo: React.FC = () => {
               </LabelInput>
               <LabelInput
                 label="*Email Address"
-                error={errors.email && "* This field is required"}
+                error={
+                  errors.email?.type === "required"
+                    ? "* This field is required"
+                    : errors.email?.type === "pattern"
+                    ? "* Please enter valid email address"
+                    : ""
+                }
               >
                 <input
-                  {...register("email", { required: true })}
+                  {...register("email", {
+                    required: true,
+                    pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                  })}
                   placeholder="Email Address"
                   name="email"
                 />
@@ -163,6 +172,27 @@ const CustomerInfo: React.FC = () => {
                 />
               </LabelInput>
             </Styled.EmergencyContactSection>
+            <Styled.ContactMethodSection>
+              <p>How should we contact you?</p>
+              <div>
+                <div>
+                  <p>Phone</p>
+                  <input
+                    {...register("preferredContactMethod", { required: true })}
+                    type="checkbox"
+                    defaultChecked={true}
+                  />
+                </div>
+                <div>
+                  <p>Text Message</p>
+                  <input
+                    {...register("preferredContactMethod", { required: true })}
+                    type="checkbox"
+                    defaultChecked={false}
+                  />
+                </div>
+              </div>
+            </Styled.ContactMethodSection>
           </form>
         </Styled.Container>
       </AppointmentLayout>
