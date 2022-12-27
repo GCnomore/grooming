@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import STYLE from "../../style";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  height: 100%;
+`;
 
 export const NextButtonContainer = styled.div`
   width: 100%;
@@ -10,6 +12,7 @@ export const NextButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 10%;
+  padding-bottom: 3rem;
 
   p {
     font-size: 0.8rem;

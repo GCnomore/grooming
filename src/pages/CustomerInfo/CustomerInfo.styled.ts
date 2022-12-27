@@ -9,7 +9,7 @@ export const Container = styled.main`
     align-items: center;
     width: 100%;
 
-    input {
+    input[type="text"] {
       width: 100%;
       ${STYLE.INPUT};
       margin: 0;
@@ -77,6 +77,11 @@ export const ContactMethodSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
+
+  > p {
+    font-size: 1.2rem;
+  }
 
   > div {
     display: flex;
@@ -84,12 +89,17 @@ export const ContactMethodSection = styled.div`
     align-items: center;
 
     p {
-      font-size: ${STYLE.LABEL_FONT_SIZE};
+      font-size: 0.9rem;
       margin-bottom: 0;
     }
 
     > div:first-child {
-      margin-right: 1rem;
+      margin-right: 3rem;
+    }
+
+    > div > input {
+      width: 1.25rem;
+      height: 1.25rem;
     }
   }
 `;

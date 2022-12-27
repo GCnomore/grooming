@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ import * as Styled from "./CustomerInfo.styled";
 
 const CustomerInfo: React.FC = () => {
   const dispatch = useDispatch<RootDispatch>();
-  const { customer } = useSelector((state: RootState) => state);
+  // const { customer } = useSelector((state: RootState) => state);
   const {
     register,
     handleSubmit,
@@ -21,20 +21,16 @@ const CustomerInfo: React.FC = () => {
   } = useForm();
 
   const handleNext = () => {
+    // Validate all fields
     trigger();
-    console.log("trigerrrr");
   };
-
-  useEffect(() => {
-    console.log("eeeeee", customer);
-  }, [customer]);
 
   return (
     <Layout>
       <AppointmentLayout btnAction={handleNext} show={true}>
         <Styled.Container>
           <Styled.PageTitleContainer>
-            <h2>Customer information</h2>
+            <h2>Customer Information</h2>
           </Styled.PageTitleContainer>
           <form
             id="hook-form"
@@ -48,6 +44,7 @@ const CustomerInfo: React.FC = () => {
                 <input
                   {...register("firstName", { required: true })}
                   placeholder="First Name"
+                  type="text"
                   name="firstName"
                 />
               </LabelInput>
@@ -58,6 +55,7 @@ const CustomerInfo: React.FC = () => {
                 <input
                   {...register("lastName", { required: true })}
                   placeholder="Last Name"
+                  type="text"
                   name="lastName"
                 />
               </LabelInput>
@@ -72,6 +70,7 @@ const CustomerInfo: React.FC = () => {
                   <input
                     {...register("streetAddr", { required: true })}
                     placeholder="Street Address"
+                    type="text"
                     name="streetAddr"
                   />
                 </LabelInput>
@@ -84,6 +83,7 @@ const CustomerInfo: React.FC = () => {
                   <input
                     {...register("city", { required: true })}
                     placeholder="City"
+                    type="text"
                     name="city"
                   />
                 </LabelInput>
@@ -94,16 +94,27 @@ const CustomerInfo: React.FC = () => {
                   <input
                     {...register("state", { required: true })}
                     placeholder="State"
+                    type="text"
                     name="state"
                   />
                 </LabelInput>
                 <LabelInput
                   label="*Zip Code"
-                  error={errors.zipCode && "* This field is required"}
+                  error={
+                    errors.zipCode?.type === "required"
+                      ? "* This field is required"
+                      : errors.zipCode?.type === "pattern"
+                      ? "* Please enter valid zip code"
+                      : ""
+                  }
                 >
                   <input
-                    {...register("zipCode", { required: true })}
+                    {...register("zipCode", {
+                      required: true,
+                      pattern: /(^\d{5}$)|(^\d{5}-\d{4}$)/,
+                    })}
                     placeholder="Zip Code"
+                    type="text"
                     name="zipCode"
                   />
                 </LabelInput>
@@ -113,7 +124,13 @@ const CustomerInfo: React.FC = () => {
             <Styled.ContactSection>
               <LabelInput
                 label="*Phone Number"
-                error={errors.phone && "* This field is required"}
+                error={
+                  errors.phone?.type === "required"
+                    ? "* This field is required"
+                    : errors.phone?.type === "pattern"
+                    ? "* Please enter valid phone number"
+                    : ""
+                }
               >
                 <input
                   {...register("phone", {
@@ -122,6 +139,7 @@ const CustomerInfo: React.FC = () => {
                       /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
                   })}
                   placeholder="Phone Number"
+                  type="text"
                   name="phone"
                 />
               </LabelInput>
@@ -141,6 +159,7 @@ const CustomerInfo: React.FC = () => {
                     pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                   })}
                   placeholder="Email Address"
+                  type="text"
                   name="email"
                 />
               </LabelInput>
@@ -156,18 +175,28 @@ const CustomerInfo: React.FC = () => {
                 <input
                   {...register("emergencyContactName", { required: true })}
                   placeholder="Emergency Contact Name"
+                  type="text"
                   name="emergencyContactName"
                 />
               </LabelInput>
               <LabelInput
                 label="*Emergency Contact Phone Number"
                 error={
-                  errors.emergencyContactPhone && "* This field is required"
+                  errors.emergencyContactPhone?.type === "required"
+                    ? "* This field is required"
+                    : errors.emergencyContactPhone?.type === "pattern"
+                    ? "* Please enter valid phone number"
+                    : ""
                 }
               >
                 <input
-                  {...register("emergencyContactPhone", { required: true })}
+                  {...register("emergencyContactPhone", {
+                    required: true,
+                    pattern:
+                      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+                  })}
                   placeholder="Emergency Contact Phone Number"
+                  type="text"
                   name="emergencyContactPhone"
                 />
               </LabelInput>
@@ -179,16 +208,18 @@ const CustomerInfo: React.FC = () => {
                   <p>Phone</p>
                   <input
                     {...register("preferredContactMethod", { required: true })}
-                    type="checkbox"
+                    type="radio"
                     defaultChecked={true}
+                    value="phone"
                   />
                 </div>
                 <div>
                   <p>Text Message</p>
                   <input
                     {...register("preferredContactMethod", { required: true })}
-                    type="checkbox"
+                    type="radio"
                     defaultChecked={false}
+                    value="sms"
                   />
                 </div>
               </div>
