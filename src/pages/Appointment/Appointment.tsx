@@ -7,6 +7,7 @@ import StoreInfo from "./components/StoreInfo/StoreInfo";
 import { useNavigate } from "react-router-dom";
 import SubmitBUtton from "../../components/SubmitButton/SubmitButton";
 import AppHeader from "../../components/AppHeader/AppHeader";
+import DateTimePicker from "./components/DateTimePicker/DateTimePicker";
 
 const Appointment: React.FC = () => {
   const { groomingShop, apptDate, apptTime } = useSelector(
@@ -48,7 +49,9 @@ const Appointment: React.FC = () => {
           <div>
             <TimePicker store={store} date={apptDate} />
           </div> */}
-          <Styled.RightContainer></Styled.RightContainer>
+          <Styled.RightContainer>
+            <DateTimePicker store={groomingShop} />
+          </Styled.RightContainer>
         </section>
       </>
     );

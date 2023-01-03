@@ -11,11 +11,11 @@ import * as Styled from "./StoreInfo.styled";
 import IStore from "../../../../data/models/store.model";
 import upperAllFirst from "../../../../util/upperAllFirst";
 
-interface StoreInfoProps {
+interface IStoreInfoProps {
   store: IStore;
 }
 
-const StoreInfo: React.FC<StoreInfoProps> = ({ store }) => {
+const StoreInfo: React.FC<IStoreInfoProps> = ({ store }) => {
   const petAcceptance = useCallback(() => {
     if (store.petLimit.all) {
       return "Accepts all pets (No size/wieght limit)";

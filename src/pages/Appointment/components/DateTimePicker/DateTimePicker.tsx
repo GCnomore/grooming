@@ -1,25 +1,26 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+
 import { DAYS } from "../../../../constant";
 import IStore from "../../../../data/models/store.model";
-
 import {
   RootState,
+  setApptDate,
   setApptTime,
 } from "../../../../data/redux/appointmentSlice";
 import { RootDispatch } from "../../../../data/redux/store";
+import * as Styled from "./DateTimePicker.styled";
 
-import * as Styled from "./TimePicker.styled";
-
-interface TimePickerProps {
+interface IDateTimePickerProps {
   store: IStore;
-  date: Date;
 }
 
-const TimePicker: React.FC<TimePickerProps> = ({ store, date }) => {
+const DateTimePicker: React.FC<IDateTimePickerProps> = ({ store }) => {
   const dispatch = useDispatch<RootDispatch>();
-  const { apptTime } = useSelector((state: RootState) => state);
+  const { apptTime, apptDate } = useSelector((state: RootState) => state);
 
   const [timeItems, setTimeItems] = useState<string[]>();
   const [isClosed, setIsClosed] = useState<boolean>(false);
@@ -27,7 +28,9 @@ const TimePicker: React.FC<TimePickerProps> = ({ store, date }) => {
   // //? Fetch store's business hour and create time selections
   useEffect(() => {
     const timeItems: string[] = [];
-    const dayKey: string = DAYS[moment(date).day()].toLowerCase().slice(0, 3);
+    const dayKey: string = DAYS[moment(apptDate).day()]
+      .toLowerCase()
+      .slice(0, 3);
     const businessHours: string[] = store.hours[dayKey].split("-");
 
     if (businessHours[0] === "Closed") {
@@ -54,33 +57,41 @@ const TimePicker: React.FC<TimePickerProps> = ({ store, date }) => {
       setIsClosed(false);
       setTimeItems(timeItems);
     }
-  }, [date]);
+  }, [apptDate]);
+
+  const onChangeDate = (date: Date) => {
+    dispatch(setApptDate(date));
+  };
 
   return (
     <Styled.Container>
-      {isClosed ? (
-        <span>This store is closed on selected date</span>
-      ) : (
-        <>
-          <Styled.TimeButton isset={apptTime ? "true" : "false"}>
-            {apptTime ?? "Select time"}
-          </Styled.TimeButton>
-          {timeItems ? (
-            <Styled.TimeMenu>
-              {timeItems.map((item) => (
-                <Styled.TimeItem
+      <Styled.CalendarContainer>
+        <Calendar onChange={onChangeDate} value={new Date()} />
+      </Styled.CalendarContainer>
+      <Styled.TimeContainer>
+        <span>Available Time</span>
+        {isClosed ? (
+          <div style={{ flexWrap: "nowrap" }}>
+            <p>This store is closed on selected date</p>
+          </div>
+        ) : (
+          <>
+            <div>
+              {timeItems?.map((item) => (
+                <Styled.TimeButton
                   key={item}
+                  isset={apptTime === item}
                   onClick={() => dispatch(setApptTime(item))}
                 >
                   {item}
-                </Styled.TimeItem>
+                </Styled.TimeButton>
               ))}
-            </Styled.TimeMenu>
-          ) : null}
-        </>
-      )}
+            </div>
+          </>
+        )}
+      </Styled.TimeContainer>
     </Styled.Container>
   );
 };
 
-export default TimePicker;
+export default DateTimePicker;
