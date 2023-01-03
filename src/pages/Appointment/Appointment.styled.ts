@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-export const Container = styled.main`
+export const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 export const Contents = styled.article`
@@ -10,20 +11,10 @@ export const Contents = styled.article`
   justify-content: space-between;
 `;
 
-export const StoreInfoSection = styled.section`
-  width: 50%;
+export const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-export const MapSection = styled.section`
-  width: 40%;
-  height: 25rem;
-  position: relative;
-
-  > div > div {
-    border-radius: 12px;
-  }
+  height: 100%;
 `;

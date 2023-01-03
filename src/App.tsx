@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "./data/redux/appointmentSlice";
 import { getGroomingStore } from "./data/redux/actions";
 import upperAllFirst from "./util/upperAllFirst";
+import Layout from "./components/Layout/Layout";
 
 function App() {
   const dispatch = useDispatch<RootDispatch>();
@@ -21,16 +22,9 @@ function App() {
 
   return (
     <Styled.AppContainer className="App">
-      <Styled.Header>
-        <div>
-          <a href="/account">Account</a>
-        </div>
-        <Styled.StoreNameContainer>
-          <h1>{upperAllFirst(groomingShop?.name ?? "")}</h1>
-        </Styled.StoreNameContainer>
-      </Styled.Header>
-
-      <RouterProvider router={router} />
+      <Layout>
+        <RouterProvider router={router} />
+      </Layout>
     </Styled.AppContainer>
   );
 }
